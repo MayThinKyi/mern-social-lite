@@ -63,7 +63,7 @@ const CommentSection = ({postId}) => {
     })
     },[postId])
   return (
-    <div className=' mx-auto'>
+    <div className=' mx-auto lg:mx-0'>
       <form onSubmit={handleSubmit(onSubmitHandler)} className='flex flex-col items-end'>
         <div  className='mb-3'>
       <textarea  rows={3} cols={40} placeholder='Comment' type='text' className='bg-[#F1F5F9] py-[10px]  px-5 rounded-lg  outline-[#2563EB]' {...register("comment")} /> 

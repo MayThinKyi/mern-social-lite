@@ -16,7 +16,7 @@ const PostPage = () => {
        
     },[])
   return (
-    <div className='flex flex-wrap justify-between py-10 lg:flex-nowrap'>
+    <div className='flex flex-wrap py-10 p-5 sm:px-10 lg:px-[100px] lg:flex-nowrap gap-x-10 lg:gap-x-28 '>
         <Post post={post}  />
         <CommentSection postId={post?.id} />
     </div>

@@ -16,7 +16,7 @@ const Navbar = () => {
       <div className='flex items-center gap-x-4 sm:gap-x-10'>
         <Link to={`/users/${auth?.id}`} className='mt-3 text-md sm:text-lg font-[500]'>{auth?.name}</Link>
         {auth? <>
-        <Link className='mt-5 ' to={'/create-post'}>Create Post</Link>
+        <Link className='mt-3 ' to={'/create-post'}>Create Post</Link>
           <button onClick={logoutHandler} className='px-8 py-2 mt-5 text-white bg-blue-600 hover:bg-blue-800 rounded-3xl text-md '>Logout</button>
           </> :<>
         <Link to={'/register'} className='px-4 py-1 mt-5 text-sm text-white bg-blue-600 sm:px-8 sm:py-2 hover:bg-blue-800 rounded-3xl sm:text-md '>Register</Link>
