@@ -9,6 +9,7 @@ import CreatePost from './pages/CreatePost'
 import PostPage from './pages/Post'
 import EditPost from './pages/EditPost'
 import UserPosts from './pages/UserPosts'
+import ChangePassword from './pages/ChangePassword'
 const App = () => {
   return (
     <div>
@@ -23,6 +24,7 @@ const App = () => {
           <Route path='/posts/:postId' element={<PostPage/>} />
           <Route path='/edit-post/:postId' element={<EditPost/>} />
           <Route path='/users/:userId' element={<UserPosts/>} />
+          <Route path='/change-password' element={<ChangePassword/>} />
 
 
         </Routes>

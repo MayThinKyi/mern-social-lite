@@ -4,8 +4,11 @@ const {Users,Posts,Likes}=require('../models')
 //Register User
 const registerUser=(req,res)=>{
    const {name,email,password}=req.body;
+  
    Users.findOne({where:{name,email}})
    .then((user)=>{
+    if(user)   res.status(400).json({error:'Name and email already exist!'}).end();
+
     if(!user){
         bcrypt.hash(password,10)
    .then((hash)=>{
@@ -15,9 +18,8 @@ const registerUser=(req,res)=>{
     .catch(err=>console.log(err))
    })
    .catch(err=>console.log(err))
-    }else{
-        res.status(400).json({error:'Name and email already exist!'}).end();
     }
+    
    })
 }
 //Login User
@@ -46,4 +48,44 @@ const getPostsByUserId=(req,res)=>{
     .then((posts)=>res.send(posts))
     .catch(err=>console.log(err))
 }
-module.exports={registerUser,loginUser,getPostsByUserId}
+//Get User Profile By UserId
+const getUserProfile=(req,res)=>{
+    const userId=req.params.userId;
+    Users.findOne({where:{id:userId}})
+    .then((user)=>res.status(200).json({user}))
+    .catch(err=>console.log(err))
+}
+//Update User Profile By UserId
+const updateUserProfile=async(req,res)=>{
+    const userId=req.params.userId;
+    const userToUpdate=req.body;
+   let user=await Users.findOne({where:{id:userId}})
+     user.name=userToUpdate.name;
+     user.email=userToUpdate.email;
+    await user.save()
+        .then(()=>res.status(200).json({message:'Profile updated successfully!'}))
+        .catch(err=>console.log(err))
+}
+//User Update Password
+const userUpdatePassword=async(req,res)=>{
+   const {oldPassword,newPassword,userId}=req.body;
+  let user=await Users.findOne({where:{id:userId}})
+    const dbPassword=user?.password;
+    bcrypt.compare(oldPassword,dbPassword)
+    .then((match)=>{
+        if(!match) res.status(400).json({error:'Old Password is not credential!'})
+        else {
+   bcrypt.hash(newPassword,10)
+    .then((hash)=>{
+        user.password=hash;
+        user.save()
+        .then(()=>res.status(200).json({message:'Password updated successfully!'}))
+        .catch(err=>console.log(err))
+    })
+    .catch(err=>console.log(err))
+    }
+    })
+   
+}
+
+module.exports={registerUser,loginUser,getPostsByUserId,getUserProfile,updateUserProfile,userUpdatePassword}

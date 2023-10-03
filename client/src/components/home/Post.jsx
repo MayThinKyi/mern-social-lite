@@ -14,7 +14,7 @@ const Post = ({post}) => {
       setLikeLengthByPostId(post?.Likes?.length)
     },[post])
   return (
-    <div className='bg-[#F1F5F9] mx-auto rounded-2xl mb-5 p-6 cursor-pointer w-[400px]'>
+    <div className='bg-[#F1F5F9] mx-auto rounded-2xl mb-5 p-6 cursor-pointer w-[300px] sm:w-[400px]'>
         <div className='flex items-center justify-between'>
         <h1>      {post?.title} </h1>
         <div className='flex items-center gap-1'>

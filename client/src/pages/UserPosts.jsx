@@ -1,9 +1,12 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
 import Post from '../components/home/Post';
+import { AuthContext } from '../contexts/AuthProvider';
+import UserProfile from '../components/user/UserProfile';
 
 const UserPosts = () => {
+  const {auth}=useContext(AuthContext)
     const {userId}=useParams();
     const [postsByUser,setPostsByUser]=useState(null);
     useEffect(()=>{
@@ -16,8 +19,9 @@ const UserPosts = () => {
     },[])
   return (
     <div className='py-10'>
-        <h1 className='my-5 text-center text-2xl font-semibold'>Name: {postsByUser &&postsByUser[0]?.User?.name}</h1>
-      {postsByUser?.map(post=>{
+      {auth?.id==userId && <UserProfile/> }
+      {postsByUser?.length>0  ? <h1 className='my-5 text-2xl font-semibold text-center'>Name: {postsByUser && postsByUser[0]?.User?.name}</h1>
+      : <h1 className='text-2xl font-semibold text-center'>No Posts...</h1> }{postsByUser?.map(post=>{
         return <Post key={post?.id} post={post} />
       })}
     </div>
